@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Enlistment Planner</title>
+    </head>
+
+<script>
+
+    var startTime = 800;
+    var endTime = 2000;
+    var timeSlots = [];
+
+    window.onload = function(){
+        createTimeslots();
+    }
+
+    function createTimeslots(){
+        var currentTime = startTime;
+        while(currentTime < endTime){
+            timeSlotLowerBound = currentTime;
+
+            if (timeSlotLowerBound%100 != 0){
+                timeSlotHigherBound = timeSlotLowerBound + 70;
+            }else{
+                timeSlotHigherBound = timeSlotLowerBound + 30;
+            }
+            
+            timeSlots.push(timeSlotLowerBound + " - " + timeSlotHigherBound);
+            currentTime = timeSlotHigherBound;
+        }
+    }
+
+    function createTable(){
+        
+    }
+</script>
+
+<style>
+    *{
+    margin: 0px;
+    padding: 0px;
+    }
+    
+    .page{
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mainHeader{
+        height: 10%;
+    }
+
+    table{
+        height: 90%;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td{
+        border: 1px solid;
+    }
+</style>
+
+<body>
+    <div class = "page">
+        <h1 class="mainHeader">Enlistment Planner</h1>
+        <table class="mainTable">
+            <tr>
+                <th>Timeslot</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
