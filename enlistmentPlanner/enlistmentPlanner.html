@@ -9,6 +9,7 @@
     var startTime = 800;
     var endTime = 2000;
     var timeSlots = [];
+    var classes = [];
 
     window.onload = function(){
         createTimeslots();
@@ -33,6 +34,10 @@
     function createTable(){
 
     }
+
+    function addClass(){
+
+    }
 </script>
 
 <style>
@@ -54,8 +59,17 @@
         margin-bottom: 10px;
     }
 
+    .naviButtons{
+      height: 10%;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 20px;
+    }
+
     table{
-        height: 90%;
+        height: 80%;
         width: 100%;
         border-collapse: collapse;
     }
@@ -68,6 +82,14 @@
 <body>
     <div class = "page">
         <h1 class="mainHeader">Enlistment Planner</h1>
+        <div class="naviButtons">
+          <input type="text" name="addClassField" value="">
+          <button type="button" name="button" class="newClass" onclick="addClass();">Add New Class</button>
+          <select class="existingClasses" name="existingClasses">
+
+          </select>
+          <button type="button" name="button" class="editClass" onclick="editClass();">Add New Class</button>
+        </div>
         <table class="mainTable">
             <tr>
                 <th>Timeslot</th>
