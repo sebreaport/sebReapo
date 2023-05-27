@@ -10,9 +10,13 @@
     var endTime = 2000;
     var timeSlots = [];
     var classes = [];
+    var internalCalendar = {monday:[], tuesday:[], wednesday:[], thursday:[], friday:[]};
+    var displayedCalendar = {monday:[], tuesday:[], wednesday:[], thursday:[], friday:[]};
 
     window.onload = function(){
         createTimeslots();
+        loadUserData();
+        generateDropdown();
     }
 
     function createTimeslots(){
@@ -31,12 +35,76 @@
         }
     }
 
+    function loadUserData(){
+      var userClasses = JSON.parse(localStorage.getItem("classes"));
+      var userCalendar = JSON.parse(localStorage.getItem("userCalendar"));
+
+      if (userClasses != null) {
+        classes = userClasses;
+      }
+
+      if (userCalendar != null) {
+        internalCalendar = userCalendar;
+      }
+    }
+
     function createTable(){
 
     }
 
     function addClass(){
+      var newClass = document.getElementsByClassName("addClassField")[0].value;
+      if (newClass == ""){
+        alert("Please enter a valid class name!");
+        return;
+      }else if(classes.includes(newClass) == true) {
+        alert("Class already included!");
+        return;
+      }
 
+      classes.push(newClass);
+      generateDropdown();
+      document.getElementsByClassName("addClassField")[0].value = "";
+      localStorage.setItem("classes",JSON.stringify(classes));
+    }
+
+    function generateDropdown(){
+      var dropDown = document.getElementsByClassName("existingClasses")[0];
+      var dropDownValues = [];
+
+      for (var i = 0; i < dropDown.options.length; i++) {
+        dropDownValues.push(dropDown.options[i].text);
+      }
+
+      function addToDropdown(value){
+        if (dropDownValues.includes(value) == false) {
+          var option = document.createElement("option");
+          option.text = value;
+          dropDown.add(option);
+        }
+      }
+      classes.forEach(addToDropdown);
+    }
+
+    function deleteClass(){
+      var dropDown = document.getElementsByClassName("existingClasses")[0];
+
+      if (dropDown.options.length == 0) {
+        alert("No Classes Added!");
+        return;
+      }else{
+        if (confirm("Delete class?")) {
+          var value = dropDown.options[dropDown.selectedIndex].text;
+          var index = classes.indexOf(value);
+          if (index > -1) {
+            classes.splice(index,1);
+          }
+          dropDown.remove(dropDown.selectedIndex);
+          localStorage.setItem("classes",JSON.stringify(classes));
+        }else{
+          return;
+        }
+      }
     }
 </script>
 
@@ -77,27 +145,31 @@
     table, th, td{
         border: 1px solid;
     }
+
+    .timeslots{
+      width: 150px;
+    }
 </style>
 
 <body>
     <div class = "page">
         <h1 class="mainHeader">Enlistment Planner</h1>
         <div class="naviButtons">
-          <input type="text" name="addClassField" value="">
+          <input type="text" name="addClassField" class="addClassField" value="">
           <button type="button" name="button" class="newClass" onclick="addClass();">Add New Class</button>
-          <select class="existingClasses" name="existingClasses">
-
-          </select>
-          <button type="button" name="button" class="editClass" onclick="editClass();">Add New Class</button>
+          <select class="existingClasses" name="existingClasses"></select>
+          <button type="button" name="button" class="editClass" onclick="editClass();">Edit Class</button>
+          <button type="button" name="button" class="deleteClass" onclick="deleteClass();">Delete Class</button>
         </div>
         <table class="mainTable">
             <tr>
-                <th>Timeslot</th>
+                <th class="timeslots">Timeslot</th>
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
                 <th>Thursday</th>
                 <th>Friday</th>
+                <th>Saturday</th>
             </tr>
         </table>
     </div>
