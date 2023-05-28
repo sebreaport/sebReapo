@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Class</title>
+
+    <script type="text/javascript">
+
+    </script>
+
+    <style>
+      *{
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .page{
+        margin: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mainHeader{
+        height: 10%;
+        margin-bottom: 10px;
+      }
+
+      .editArea{
+        height: 90%;
+        width: 100%;
+        background-color: blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .editClass{
+        width: 30%;
+        padding: 20px;
+        background-color: red;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .classList{
+        width: 70%;
+      }
+
+      table{
+        width: 70%;
+        margin: 20px;
+        border-collapse: collapse;
+      }
+
+      table, th, td{
+        border: 1px solid;
+      }
+
+    </style>
+
+  </head>
+  <body>
+    <div class="page">
+      <h1 class="mainHeader">Edit Class</h1>
+      <div class="editArea">
+        <div class="editClass">
+          <h2>Class: </h2>
+          <h3>Add Section</h3>
+          <input type="section" name="section" value="">
+        </div>
+        <table class="classList">
+          <tr>
+            <th>Section</th>
+            <th>Professor</th>
+            <th>Time Start</th>
+            <th>Time End</th>
+            <th>Days</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -4,12 +4,12 @@
         <title>Enlistment Planner</title>
     </head>
 
-<script>
+<script  type="text/javascript">
 
     var startTime = 800;
     var endTime = 2000;
     var timeSlots = [];
-    var classes = [];
+    var classes = {};
     var internalCalendar = {monday:[], tuesday:[], wednesday:[], thursday:[], friday:[]};
     var displayedCalendar = {monday:[], tuesday:[], wednesday:[], thursday:[], friday:[]};
 
@@ -57,12 +57,12 @@
       if (newClass == ""){
         alert("Please enter a valid class name!");
         return;
-      }else if(classes.includes(newClass) == true) {
+      }else if(Object.keys(classes).includes(newClass) == true) {
         alert("Class already included!");
         return;
       }
 
-      classes.push(newClass);
+      classes[newClass] = [];
       generateDropdown();
       document.getElementsByClassName("addClassField")[0].value = "";
       localStorage.setItem("classes",JSON.stringify(classes));
@@ -83,22 +83,20 @@
           dropDown.add(option);
         }
       }
-      classes.forEach(addToDropdown);
+      Object.keys(classes).forEach(addToDropdown);
     }
 
     function deleteClass(){
       var dropDown = document.getElementsByClassName("existingClasses")[0];
+      var value = dropDown.options[dropDown.selectedIndex].text;
 
       if (dropDown.options.length == 0) {
         alert("No Classes Added!");
         return;
       }else{
-        if (confirm("Delete class?")) {
-          var value = dropDown.options[dropDown.selectedIndex].text;
-          var index = classes.indexOf(value);
-          if (index > -1) {
-            classes.splice(index,1);
-          }
+        var confirmationMessage = 'Delete "' + value + '" class?'
+        if (confirm(confirmationMessage)) {
+          delete classes[value];
           dropDown.remove(dropDown.selectedIndex);
           localStorage.setItem("classes",JSON.stringify(classes));
         }else{
